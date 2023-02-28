@@ -2,7 +2,7 @@ name: Minecraft Server
 
 on:
   workflow_call:
-      inputs:
+    inputs:
       deploy:
         required: true
         type: boolean
