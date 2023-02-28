@@ -1,0 +1,20 @@
+name: Minecraft Server
+
+on:
+  workflow_call:
+      inputs:
+      deploy:
+        required: true
+        type: boolean
+
+jobs:
+  # Label of the container job
+  container-job:
+    # Containers must run in Linux based operating systems
+    runs-on: ubuntu-latest
+    # Docker Hub image that `container-job` executes in
+    container:
+      image: itzg/minecraft-server
+      ports:
+        - 25565
+
