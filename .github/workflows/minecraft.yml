@@ -1,11 +1,7 @@
 name: Minecraft Server
 
 on:
-  workflow_call:
-    inputs:
-      deploy:
-        required: true
-        type: boolean
+  workflow_dispatch:
 
 jobs:
   # Label of the container job
