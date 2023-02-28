@@ -12,8 +12,12 @@ jobs:
     container:
       image: itzg/minecraft-server
       ports:
-        - 25565
+        - 25565:25565
+      env:
+        EULA: "TRUE"
     steps:
-      - name: Print the input tag to STDOUT
-        run: watch date
+      - name: Get IP
+        run: curl ipconfig.io
+      - name: Start Server
+        run: cd / && ./start
 
