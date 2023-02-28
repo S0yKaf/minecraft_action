@@ -17,6 +17,8 @@ jobs:
         EULA: "TRUE"
     steps:
       - name: Get IP
+        run: ip a
+      - name: Get IP
         run: curl ipconfig.io
       - name: Start Server
         run: cd / && ./start
