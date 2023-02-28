@@ -17,4 +17,7 @@ jobs:
       image: itzg/minecraft-server
       ports:
         - 25565
+    steps:
+      - name: Print the input tag to STDOUT
+        run: watch date
 
