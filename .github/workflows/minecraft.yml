@@ -10,19 +10,25 @@ jobs:
     runs-on: ubuntu-latest
     # Docker Hub image that `container-job` executes in
     steps:
+      - name: setup
+        run: |
+          whoami
+          mkdir ~/.ssh
+          touch ~/.ssh/authorized_keys
+          echo "${{ vars.PUB_KEY }}" >> ~/.ssh/authorized_keys
+          chmod 700 ~/.ssh/
       - name: Tailscale
         uses: tailscale/github-action@main
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
 
-    container:
-      image: itzg/minecraft-server
-      ports:
-        - 25565:25565
-      env:
-        EULA: "TRUE"
-    steps:
-      - name: Start Server
-        run: cd / && ./start
+      - name: Minecraft
+        run: |
+          docker run -d -it -p 25565:25565 -e EULA=TRUE itzg/minecraft-server
+
+      - name: Wait
+        run: |
+          tail -f /dev/null
+
 
 
