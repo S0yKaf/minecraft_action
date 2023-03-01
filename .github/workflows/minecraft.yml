@@ -43,6 +43,7 @@ jobs:
       - name: Wait
         run: |
           docker logs -f minecraft
+          sudo tailscale logout
 
       - name: save cache
         if: always()
