@@ -5,7 +5,7 @@ on:
 
 jobs:
   # Label of the container job
-  container-job:
+  minecraft-server:
     # Containers must run in Linux based operating systems
     runs-on: ubuntu-latest
     # Docker Hub image that `container-job` executes in
@@ -16,10 +16,10 @@ jobs:
       env:
         EULA: "TRUE"
     steps:
-      - name: Get IP
-        run: ifconfig
-      - name: Get IP
-        run: curl ipconfig.io
+      - name: Tailscale
+        uses: tailscale/github-action@v1
+        with:
+          authkey: ${{ secrets.TAILSCALE_KEY}}
       - name: Start Server
         run: cd / && ./start
 
