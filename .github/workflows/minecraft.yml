@@ -22,13 +22,29 @@ jobs:
         with:
           authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
 
+      - name: restore cache
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            /data
+          key: minecraft-${{ github.run_number }}
+          restore-keys: |
+            minecraft-
+
       - name: Minecraft
         run: |
-          docker run -d -it -p 25565:25565 -e EULA=TRUE itzg/minecraft-server
+          docker run -d -it -p 25565:25565 -p 25575:25575 -e EULA=TRUE itzg/minecraft-server
 
       - name: Wait
         run: |
           tail -f /dev/null
 
+      - name: save cache
+        if: always()
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            /data
+          key: minecraft-${{ github.run_number }}
 
 
