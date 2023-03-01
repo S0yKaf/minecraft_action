@@ -9,6 +9,12 @@ jobs:
     # Containers must run in Linux based operating systems
     runs-on: ubuntu-latest
     # Docker Hub image that `container-job` executes in
+    steps:
+      - name: Tailscale
+        uses: tailscale/github-action@main
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
+
     container:
       image: itzg/minecraft-server
       ports:
@@ -16,10 +22,7 @@ jobs:
       env:
         EULA: "TRUE"
     steps:
-      - name: Tailscale
-        uses: tailscale/github-action@v1
-        with:
-          authkey: ${{ secrets.TAILSCALE_KEY}}
       - name: Start Server
         run: cd / && ./start
+
 
